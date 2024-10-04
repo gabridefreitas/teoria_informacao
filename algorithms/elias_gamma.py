@@ -1,7 +1,8 @@
 import math
 from math import log
  
-def codificar_elias_gamma(x):
+def codificar_elias_gamma(xs):
+    x = int(xs)
     log2 = lambda x: log(x, 2)
  
     def Unary(x):
