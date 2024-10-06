@@ -38,14 +38,12 @@ def normalize_algorithm(algorithm):
 def resolve_algorithm(option, algorithm, secret):
     if option == ENCODE:
         if algorithm == ELIAS_GAMMA:
-            conversao = secret
-            return codificar_elias_gamma(conversao)
+            return codificar_elias_gamma(secret)
         if algorithm == FIBONACCI_ZECKENDORF:
             conversao = string_para_ascii_number(secret)
             return codificar_fibonacci_zeckendorf(conversao)
         if algorithm == GOLOMB:
-            conversao = string_para_ascii_number(secret)
-            return codificar_golomb(conversao, 7)
+            return codificar_golomb(secret, 7)
         return codificar_huffman(secret)
     else:
         if algorithm == ELIAS_GAMMA:
@@ -53,7 +51,7 @@ def resolve_algorithm(option, algorithm, secret):
         if algorithm == FIBONACCI_ZECKENDORF:
             return ascii_number_para_string(decodificar_fibonacci_zeckendorf(secret))
         if algorithm == GOLOMB:
-            return ascii_number_para_string(decodificar_golomb(secret, 7))
+            return decodificar_golomb(secret, 7)
         return decodificar_huffman(secret)
 
 

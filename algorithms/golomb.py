@@ -1,46 +1,42 @@
 import math
 
+def codificar_golomb(input_string,m):
+    encoded_string = []
 
-def codificar_golomb(num, m):
-    n = int(num)
+    for char in input_string:
+        ascii_val = ord(char)
 
-    q = n // m
-    r = n % m
+        q = ascii_val // m
+        r = ascii_val % m
 
-    b = math.floor(math.log2(m))
-    k = 2 ** (b + 1) - m
-    
-    print(q)
+        quotient = '1' * q + '0'
 
-    quociente = "0" * q + "1"
+        num_bits_remainder = math.ceil(math.log2(m))
+        remainder = format(r, f'0{num_bits_remainder}b')
 
-    if r < k:
-        resto = bin(r)[2:]
-        resto = resto.zfill(b)
-    else:
-        resto = bin(r + k)[2:]
-        resto = resto.zfill(b + 1)
+        encoded_string.append(quotient + remainder)
 
-    codigo_golomb = quociente + resto
+    return ''.join(encoded_string)
 
-    return codigo_golomb
+def decodificar_golomb(input_string,m):
+    decoded_string = []
+    remainder_bits_length = math.ceil(math.log2(m))
+    current_index = 0
 
+    while current_index < len(input_string):
+        quotient = 0
+        while current_index < len(input_string) and input_string[current_index] == '1':
+            quotient += 1
+            current_index += 1
 
-def decodificar_golomb(codigo, M):
-    b = math.floor(math.log2(M))
-    k = 2 ** (b + 1) - M
+        if current_index < len(input_string) and input_string[current_index] == '0':
+            current_index += 1
 
-    q = 0
-    while codigo[q] == "0":
-        q += 1
+        remainder_binary = input_string[current_index:current_index + remainder_bits_length]
+        remainder = int(remainder_binary, 2)
+        current_index += remainder_bits_length
 
-    resto_binario = codigo[q + 1 :]
+        ascii_val = quotient * m + remainder
+        decoded_string.append(chr(ascii_val))
 
-    r = int(resto_binario, 2)
-
-    if r >= k:
-        r -= k
-
-    N = q * M + r
-
-    return N
+    return ''.join(decoded_string)
