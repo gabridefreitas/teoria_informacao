@@ -1,6 +1,3 @@
-import math
-from math import log
- 
 def codificar_elias_gamma(input_string):
     encoded_string = []
 
