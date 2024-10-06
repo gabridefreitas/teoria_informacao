@@ -1,8 +1,6 @@
 import heapq
 from collections import defaultdict, namedtuple
 
-global LAST_DICT
-
 
 class No(namedtuple("No", ["char", "freq", "esquerda", "direita"])):
     def __lt__(self, outro):
@@ -38,9 +36,6 @@ def construir_codigos(no, prefixo="", dicionario_codigos=None):
         construir_codigos(no.esquerda, prefixo + "0", dicionario_codigos)
         construir_codigos(no.direita, prefixo + "1", dicionario_codigos)
 
-    global LAST_DICT
-    LAST_DICT = dicionario_codigos
-
     return dicionario_codigos
 
 
@@ -52,8 +47,8 @@ def codificar_huffman(texto):
     return texto_codificado, codigos
 
 
-def decodificar_huffman(codigo):
-    codigos_invertidos = {v: k for k, v in LAST_DICT.items()}
+def decodificar_huffman(codigo, codigos):
+    codigos_invertidos = {v: k for k, v in codigos.items()}
     texto_decodificado = []
     codigo_atual = ""
 

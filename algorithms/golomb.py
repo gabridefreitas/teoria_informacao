@@ -9,6 +9,8 @@ def codificar_golomb(num, m):
 
     b = math.floor(math.log2(m))
     k = 2 ** (b + 1) - m
+    
+    print(q)
 
     quociente = "0" * q + "1"
 
