@@ -1,13 +1,13 @@
-from algorithms.elias_gamma import codificar_elias_gamma, decodificar_elias_gamma
+from algorithms.elias_gamma import encode_elias_gamma, decode_elias_gamma
 from algorithms.fibonacci_zeckendorf import (
-    codificar_fibonacci_zeckendorf,
-    decodificar_fibonacci_zeckendorf,
+    encode_fibonacci_zeckendorf,
+    decode_fibonacci_zeckendorf,
 )
-from algorithms.golomb import codificar_golomb, decodificar_golomb
-from algorithms.huffman import codificar_huffman, decodificar_huffman
+from algorithms.golomb import encode_golomb, decodificar_golomb
+from algorithms.huffman import encode_huffman, decode_huffman
 from algorithms.tools import (
-    string_para_ascii_number,
-    ascii_number_para_string,
+    string_to_ascii,
+    ascii_to_string,
 )
 
 ENCODE = "Codificar"
@@ -35,24 +35,24 @@ def normalize_algorithm(algorithm):
         return GOLOMB
     return HUFFMAN
 
+
 def resolve_algorithm(option, algorithm, secret):
     if option == ENCODE:
         if algorithm == ELIAS_GAMMA:
-            return codificar_elias_gamma(secret)
+            return encode_elias_gamma(secret)
         if algorithm == FIBONACCI_ZECKENDORF:
-            conversao = string_para_ascii_number(secret)
-            return codificar_fibonacci_zeckendorf(conversao)
+            return encode_fibonacci_zeckendorf(string_to_ascii(secret))
         if algorithm == GOLOMB:
-            return codificar_golomb(secret, 7)
-        return codificar_huffman(secret)
+            return encode_golomb(secret, 7)
+        return encode_huffman(secret)
     else:
         if algorithm == ELIAS_GAMMA:
-            return decodificar_elias_gamma(secret)
+            return decode_elias_gamma(secret)
         if algorithm == FIBONACCI_ZECKENDORF:
-            return ascii_number_para_string(decodificar_fibonacci_zeckendorf(secret))
+            return ascii_to_string(decode_fibonacci_zeckendorf(secret))
         if algorithm == GOLOMB:
             return decodificar_golomb(secret, 7)
-        return decodificar_huffman(secret)
+        return decode_huffman(secret)
 
 
 def get_operation(values):

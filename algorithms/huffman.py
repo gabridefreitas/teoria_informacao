@@ -4,63 +4,66 @@ from collections import defaultdict, namedtuple
 global LAST_DICT
 
 
-class No(namedtuple("No", ["char", "freq", "esquerda", "direita"])):
+class Node(namedtuple("No", ["char", "freq", "left", "right"])):
     def __lt__(self, outro):
         return self.freq < outro.freq
 
 
-def construir_arvore_huffman(texto):
-    frequencia = defaultdict(int)
-    for caractere in texto:
-        frequencia[caractere] += 1
+def build_huffman_tree(input_string):
+    frequency = defaultdict(int)
 
-    fila_prioridade = [
-        No(caractere, freq, None, None) for caractere, freq in frequencia.items()
-    ]
-    heapq.heapify(fila_prioridade)
+    for char in input_string:
+        frequency[char] += 1
 
-    while len(fila_prioridade) > 1:
-        esquerda = heapq.heappop(fila_prioridade)
-        direita = heapq.heappop(fila_prioridade)
-        mesclado = No(None, esquerda.freq + direita.freq, esquerda, direita)
-        heapq.heappush(fila_prioridade, mesclado)
+    priority_queue = [Node(char, freq, None, None) for char, freq in frequency.items()]
 
-    return fila_prioridade[0]
+    heapq.heapify(priority_queue)
+
+    while len(priority_queue) > 1:
+        left = heapq.heappop(priority_queue)
+        right = heapq.heappop(priority_queue)
+
+        combined = Node(None, left.freq + right.freq, left, right)
+
+        heapq.heappush(priority_queue, combined)
+
+    return priority_queue[0]
 
 
-def construir_codigos(no, prefixo="", dicionario_codigos=None):
-    if dicionario_codigos is None:
-        dicionario_codigos = {}
+def generate_codes(node, prefix="", code_dictionary=None):
+    if code_dictionary is None:
+        code_dictionary = {}
 
-    if no.char is not None:
-        dicionario_codigos[no.char] = prefixo
+    if node.char is not None:
+        code_dictionary[node.char] = prefix
     else:
-        construir_codigos(no.esquerda, prefixo + "0", dicionario_codigos)
-        construir_codigos(no.direita, prefixo + "1", dicionario_codigos)
+        generate_codes(node.left, prefix + "0", code_dictionary)
+        generate_codes(node.right, prefix + "1", code_dictionary)
 
     global LAST_DICT
-    LAST_DICT = dicionario_codigos
+    LAST_DICT = code_dictionary
 
-    return dicionario_codigos
-
-
-def codificar_huffman(texto):
-    raiz = construir_arvore_huffman(texto)
-    codigos = construir_codigos(raiz)
-
-    texto_codificado = "".join(codigos[caractere] for caractere in texto)
-    return texto_codificado, codigos
+    return code_dictionary
 
 
-def decodificar_huffman(codigo):
-    codigos_invertidos = {v: k for k, v in LAST_DICT.items()}
-    texto_decodificado = []
-    codigo_atual = ""
+def encode_huffman(input_string):
+    root = build_huffman_tree(input_string)
+    codes = generate_codes(root)
 
-    for bit in codigo:
-        codigo_atual += bit
-        if codigo_atual in codigos_invertidos:
-            texto_decodificado.append(codigos_invertidos[codigo_atual])
-            codigo_atual = ""
+    encoded_text = "".join(codes[char] for char in input_string)
 
-    return "".join(texto_decodificado)
+    return encoded_text, codes
+
+
+def decode_huffman(input_string):
+    inverted_codes = {v: k for k, v in LAST_DICT.items()}
+    decoded_text = []
+    current_code = ""
+
+    for bit in input_string:
+        current_code += bit
+        if current_code in inverted_codes:
+            decoded_text.append(inverted_codes[current_code])
+            current_code = ""
+
+    return "".join(decoded_text)

@@ -1,5 +1,5 @@
-def codificar_fibonacci_zeckendorf(num):
-    n = int(num)
+def encode_fibonacci_zeckendorf(input_string):
+    n = int(input_string)
 
     result = []
 
@@ -29,16 +29,16 @@ def codificar_fibonacci_zeckendorf(num):
     return "".join(result)
 
 
-def decodificar_fibonacci_zeckendorf(codigo):
+def decode_fibonacci_zeckendorf(input_string):
     result = 0
     fib = [0, 1]
 
-    while len(fib) < len(codigo) + 2:
+    while len(fib) < len(input_string) + 2:
         next_fib = fib[-1] + fib[-2]
         fib.append(next_fib)
 
-    for i in range(len(codigo)):
-        if codigo[len(codigo) - 1 - i] == "1":
+    for i in range(len(input_string)):
+        if input_string[len(input_string) - 1 - i] == "1":
             result += fib[i + 2]
 
     return str(result)
