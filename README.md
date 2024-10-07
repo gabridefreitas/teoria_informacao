@@ -23,3 +23,7 @@ A entrega pode ser efetuado somente por 1 integrante do grupo, mas deve constar 
 - Tenha o Python 3 instalado
 - Execute o arquivo `main.py`
 - Siga as instruções no terminal
+
+## Apresentação
+
+[Disponível aqui](https://asavbrm-my.sharepoint.com/:v:/g/personal/gabrieldefreitas_edu_unisinos_br/EZ-fKubrfCZDkfnFhrImxQAB_XQX5ms6lvETt1RsKqRSeg?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&email=ELVANDI%40unisinos.br&e=5KEArk)
