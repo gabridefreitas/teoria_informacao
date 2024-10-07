@@ -3,14 +3,14 @@
 
 
 
-def codificar_fibonacci_zeckendorf(string):
+def encode_fibonacci_zeckendorf(string):
     ret=""
     for char in string:
-        ret+=codificar_char(char)+"1"
+        ret+=codify_char(char)+"1" #sera adicionado o stopbit aqui entao a = 000100011
     return ret
 
 
-def codificar_char(char):
+def codify_char(char): #exemplo 10001000 = a
     n = ord(char)
     result = []
     fibonacci = [1, 2]
@@ -32,22 +32,22 @@ def codificar_char(char):
 
     string_prep="".join(result)
     
-    return "".join(result)[::-1]
+    return "".join(result)[::-1] #retornara 00010001
 
 
-def decodificar_fibonacci_zeckendorf(codigo):
+def decode_fibonacci_zeckendorf(code):
     ret=""
     current_index = 0
     
-    while current_index < len(codigo):
-        end_index = codigo.find('11', current_index)
+    while current_index < len(code):
+        end_index = code.find('11', current_index) #acha o index do primeiro 11
     
         if end_index == -1:
             return ret;
-        end_index+=1
-        string_code = codigo[current_index:end_index]
-        ret+=chr(decodificar_char(string_code))
-        current_index=end_index+1
+        end_index+=1 #compensa o index pra pegar o 1 faltante
+        string_code = code[current_index:end_index]
+        ret+=chr(decode_char(string_code))
+        current_index=end_index+1 #compensa o index para pegar o proximo codigo
 
     return ret
 
@@ -55,15 +55,15 @@ def decodificar_fibonacci_zeckendorf(codigo):
 
 
 
-def decodificar_char(codigo):
-    codigo = codigo[::-1]
+def decode_char(code):
+    code = code[::-1] #reverte o codigo para poder decodar ie. 00010001 vai virar 10001000
     result = 0
     fib = [0, 1]
-    while len(fib) < len(codigo) + 2:
+    while len(fib) < len(code) + 2:
         next_fib = fib[-1] + fib[-2]
         fib.append(next_fib)
-    for i in range(len(codigo)):
-        if codigo[len(codigo) - 1 - i] == "1":
+    for i in range(len(code)):
+        if code[len(code) - 1 - i] == "1":
             result += fib[i + 2]
     return result
 
