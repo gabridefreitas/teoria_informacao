@@ -5,10 +5,7 @@ from algorithms.fibonacci_zeckendorf import (
 )
 from algorithms.golomb import encode_golomb, decodificar_golomb
 from algorithms.huffman import encode_huffman, decode_huffman
-from algorithms.tools import (
-    string_to_ascii,
-    ascii_to_string,
-)
+
 
 ENCODE = "Codificar"
 DECODE = "Decodificar"
@@ -41,7 +38,7 @@ def resolve_algorithm(option, algorithm, secret):
         if algorithm == ELIAS_GAMMA:
             return encode_elias_gamma(secret)
         if algorithm == FIBONACCI_ZECKENDORF:
-            return encode_fibonacci_zeckendorf(string_to_ascii(secret))
+            return encode_fibonacci_zeckendorf(secret)
         if algorithm == GOLOMB:
             return encode_golomb(secret, 7)
         return encode_huffman(secret)
@@ -49,7 +46,7 @@ def resolve_algorithm(option, algorithm, secret):
         if algorithm == ELIAS_GAMMA:
             return decode_elias_gamma(secret)
         if algorithm == FIBONACCI_ZECKENDORF:
-            return ascii_to_string(decode_fibonacci_zeckendorf(secret))
+            return decode_fibonacci_zeckendorf(secret)
         if algorithm == GOLOMB:
             return decodificar_golomb(secret, 7)
         return decode_huffman(secret)
