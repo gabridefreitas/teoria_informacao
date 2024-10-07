@@ -1,44 +1,44 @@
 def codificar_fibonacci_zeckendorf(num):
     n = int(num)
 
-    resultado = []
+    result = []
 
     fibonacci = [1, 2]
 
     while True:
-        prox = fibonacci[-1] + fibonacci[-2]
+        next_fib = fibonacci[-1] + fibonacci[-2]
 
-        if prox > n:
+        if next_fib > n:
             break
 
-        fibonacci.append(prox)
+        fibonacci.append(next_fib)
 
-    primeiro = False
+    first_one = False
 
     for i in range(len(fibonacci) - 1, -1, -1):
         if n >= fibonacci[i]:
-            resultado.append("1")
+            result.append("1")
             n -= fibonacci[i]
-            primeiro = True
-        elif primeiro:
-            resultado.append("0")
+            first_one = True
+        elif first_one:
+            result.append("0")
 
-    if not resultado:
+    if not result:
         return "0"
 
-    return "".join(resultado)
+    return "".join(result)
 
 
 def decodificar_fibonacci_zeckendorf(codigo):
-    resultado = 0
+    result = 0
     fib = [0, 1]
 
     while len(fib) < len(codigo) + 2:
-        prox = fib[-1] + fib[-2]
-        fib.append(prox)
+        next_fib = fib[-1] + fib[-2]
+        fib.append(next_fib)
 
     for i in range(len(codigo)):
         if codigo[len(codigo) - 1 - i] == "1":
-            resultado += fib[i + 2]
+            result += fib[i + 2]
 
-    return str(resultado)
+    return str(result)

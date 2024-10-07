@@ -1,43 +1,45 @@
 import math
 from math import log
+ 
+def codificar_elias_gamma(input_string):
+    encoded_string = []
 
+    for char in input_string:
+        ascii_val = ord(char)
+        binary = bin(ascii_val)[2:]
 
-def codificar_elias_gamma(num):
-    x = int(num)
+        if ascii_val == 1:
+            encoded_string.append("1")
+            continue
 
-    log2 = lambda x: log(x, 2)
+        prefix = "0" * (len(binary) - 1)
+        encoded_string.append(prefix + binary)
 
-    def Unary(x):
-        return (x - 1) * "0" + "1"
+    return ''.join(encoded_string)
 
-    def Binary(x, l=1):
-        s = "{0:0%db}" % l
-        return s.format(x)
+def decodificar_elias_gamma(input_string):
+    decoded_string = []
+    i = 0
+    input_length = len(input_string) 
+    input_string = input_string  
 
-    if x == 0:
-        return "0"
+    while i < input_length:
+        zero_count = 0
 
-    n = 1 + int(log2(x))
-    b = x - 2 ** (int(log2(x)))
-    l = int(log2(x))
+        while i < input_length and input_string[i] == '0':
+            zero_count += 1
+            i += 1
 
-    return Unary(n) + Binary(b, l)
+        if i < input_length and input_string[i] == '1':
+            i += 1
 
+        binary = '1'
+        for _ in range(zero_count):
+            if i < input_length:
+                binary += input_string[i]
+                i += 1
 
-def decodificar_elias_gamma(codigo):
-    codigo = list(codigo)
-    K = 0
-    while True:
-        if not codigo[K] == "0":
-            break
-        K = K + 1
+        ascii_val = int(binary, 2)
+        decoded_string.append(chr(ascii_val))
 
-    codigo = codigo[K : 2 * K + 1]
-
-    n = 0
-    codigo.reverse()
-
-    for i in range(len(codigo)):
-        if codigo[i] == "1":
-            n = n + math.pow(2, i)
-    return int(n)
+    return ''.join(decoded_string)
