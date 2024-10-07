@@ -1,72 +1,69 @@
-def generate_fibonacci_up_to(n):
-    fibonacci = [1, 2]
 
+
+
+
+
+def codificar_fibonacci_zeckendorf(string):
+    ret=""
+    for char in string:
+        ret+=codificar_char(char)+"1"
+    return ret
+
+
+def codificar_char(char):
+    n = ord(char)
+    result = []
+    fibonacci = [1, 2]
     while True:
         next_fib = fibonacci[-1] + fibonacci[-2]
         if next_fib > n:
             break
         fibonacci.append(next_fib)
+    first_one = False
+    for i in range(len(fibonacci) - 1, -1, -1):
+        if n >= fibonacci[i]:
+            result.append("1")
+            n -= fibonacci[i]
+            first_one = True
+        elif first_one:
+            result.append("0")
+    if not result:
+        return "0"
 
-    return fibonacci
-
-
-def generate_fibonacci_for_length(length):
-    fibonacci = [1, 2]
-
-    for _ in range(2, length):
-        fibonacci.append(fibonacci[-1] + fibonacci[-2])
-
-    return fibonacci
-
-
-def encode_fibonacci_zeckendorf(input_string):
-    encoded_string = []
-
-    for char in input_string:
-        ascii_val = ord(char)
-        fibonacci = generate_fibonacci_up_to(ascii_val)
-
-        fib_code = []
-
-        for f in reversed(fibonacci):
-            if ascii_val >= f:
-                fib_code.append("1")
-                ascii_val -= f
-            else:
-                fib_code.append("0")
-
-        fib_code.append("11")
-
-        encoded_string.append("".join(fib_code))
-
-    return "".join(encoded_string)
+    string_prep="".join(result)
+    
+    return "".join(result)[::-1]
 
 
-def decode_fibonacci_zeckendorf(encoded_string):
-    decoded_string = []
+def decodificar_fibonacci_zeckendorf(codigo):
+    ret=""
     current_index = 0
-
-    while current_index < len(encoded_string):
-        end_index = encoded_string.find("11", current_index)
-
+    
+    while current_index < len(codigo):
+        end_index = codigo.find('11', current_index)
+    
         if end_index == -1:
-            break
+            return ret;
+        end_index+=1
+        string_code = codigo[current_index:end_index]
+        ret+=chr(decodificar_char(string_code))
+        current_index=end_index+1
 
-        encoded_char = encoded_string[current_index:end_index]
+    return ret
 
-        if len(encoded_char) == 0:
-            break
 
-        fibonacci = generate_fibonacci_for_length(len(encoded_char))
 
-        ascii_val = 0
 
-        for i, bit in enumerate(reversed(encoded_char)):
-            if bit == "1":
-                ascii_val += fibonacci[i]
 
-        decoded_string.append(chr(ascii_val))
+def decodificar_char(codigo):
+    codigo = codigo[::-1]
+    result = 0
+    fib = [0, 1]
+    while len(fib) < len(codigo) + 2:
+        next_fib = fib[-1] + fib[-2]
+        fib.append(next_fib)
+    for i in range(len(codigo)):
+        if codigo[len(codigo) - 1 - i] == "1":
+            result += fib[i + 2]
+    return result
 
-        current_index = end_index + 2
-
-    return "".join(decoded_string)
