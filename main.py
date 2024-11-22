@@ -5,7 +5,7 @@ from algorithms.fibonacci_zeckendorf import (
     decode_fibonacci_zeckendorf,
 )
 from algorithms.golomb import encode_golomb, decodificar_golomb
-from algorithms.hamming import encode_hamming, decode_hamming
+from algorithms.hamming import encode_string, decode_string
 from algorithms.huffman import encode_huffman, decode_huffman
 
 BSC = "BSC"
@@ -51,7 +51,7 @@ def resolve_algorithm(option, algorithm, secret):
         if algorithm == HUFFMAN:
             return encode_huffman(secret)
         if algorithm == HAMMING:
-            return encode_hamming(secret)
+            return encode_string(secret)
         return encode_bsc(secret, get_bsc_r())
     else:
         if algorithm == ELIAS_GAMMA:
@@ -63,7 +63,7 @@ def resolve_algorithm(option, algorithm, secret):
         if algorithm == HUFFMAN:
             return decode_huffman(secret)
         if algorithm == HAMMING:
-            return decode_hamming(secret)
+            return decode_string(secret)
         return decode_bsc(secret, get_bsc_r())
 
 

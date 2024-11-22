@@ -20,6 +20,12 @@ def encode_hamming(input_string):
 
     return encode(first_half_bin) + encode(second_half_bin)
 
+def encode_string(string):
+    ret = ""
+    for c in string:
+        ret += encode_hamming(c)
+
+    return ret
 
 def decode(bits: str):
     integrity = [int(bits[4]), int(bits[5]), int(bits[6])]
@@ -44,3 +50,17 @@ def decode_hamming(input_string):
     second_half_bin = input_string[7:]
 
     return decode(second_half_bin) + decode(first_half_bin)
+
+def decode_string(string):
+    ret = ""
+    for i in range(0,len(string),14):
+        ret += chr(int(decode_hamming(string[i:i+14]),2))
+
+    return ret
+
+
+
+
+
+
+
