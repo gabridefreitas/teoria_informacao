@@ -1,17 +1,20 @@
+from algorithms.bsc import encode_bsc, decode_bsc
 from algorithms.elias_gamma import encode_elias_gamma, decode_elias_gamma
 from algorithms.fibonacci_zeckendorf import (
     encode_fibonacci_zeckendorf,
     decode_fibonacci_zeckendorf,
 )
 from algorithms.golomb import encode_golomb, decodificar_golomb
+from algorithms.hamming import encode_hamming, decode_hamming
 from algorithms.huffman import encode_huffman, decode_huffman
 
-
-ENCODE = "Codificar"
+BSC = "BSC"
 DECODE = "Decodificar"
 ELIAS_GAMMA = "Elias Gamma"
+ENCODE = "Codificar"
 FIBONACCI_ZECKENDORF = "Fibonacci/Zeckendorf"
 GOLOMB = "Golomb"
+HAMMING = "Hamming (7,4)"
 HUFFMAN = "Huffman"
 
 
@@ -30,7 +33,11 @@ def normalize_algorithm(algorithm):
         return FIBONACCI_ZECKENDORF
     if algorithm == "3":
         return GOLOMB
-    return HUFFMAN
+    if algorithm == "4":
+        return HUFFMAN
+    if algorithm == "5":
+        return HAMMING
+    return BSC
 
 
 def resolve_algorithm(option, algorithm, secret):
@@ -41,7 +48,11 @@ def resolve_algorithm(option, algorithm, secret):
             return encode_fibonacci_zeckendorf(secret)
         if algorithm == GOLOMB:
             return encode_golomb(secret, 7)
-        return encode_huffman(secret)
+        if algorithm == HUFFMAN:
+            return encode_huffman(secret)
+        if algorithm == HAMMING:
+            return encode_hamming(secret)
+        return encode_bsc(secret, get_bsc_r())
     else:
         if algorithm == ELIAS_GAMMA:
             return decode_elias_gamma(secret)
@@ -49,7 +60,21 @@ def resolve_algorithm(option, algorithm, secret):
             return decode_fibonacci_zeckendorf(secret)
         if algorithm == GOLOMB:
             return decodificar_golomb(secret, 7)
-        return decode_huffman(secret)
+        if algorithm == HUFFMAN:
+            return decode_huffman(secret)
+        if algorithm == HAMMING:
+            return decode_hamming(secret)
+        return decode_bsc(secret, get_bsc_r())
+
+
+def get_bsc_r():
+    while True:
+        r = input("\nInforme o valor de r: ")
+
+        if not r.isdigit():
+            print("\nValor inválido, tente novamente.")
+        else:
+            return int(r)
 
 
 def get_operation(values):
@@ -75,7 +100,6 @@ def get_secret(option, algorithm):
 
 
 def main():
-
     while True:
         print(
             "\nBem vindo, informe o que você deseja fazer:\n"
@@ -91,10 +115,12 @@ def main():
             + "1 - Elias Gamma\n"
             + "2 - Fibonacci/Zeckendorf\n"
             + "3 - Golomb\n"
-            + "4 - Huffman"
+            + "4 - Huffman\n"
+            + "5 - Hamming (7,4)\n"
+            + "6 - BSC"
         )
 
-        algorithm = normalize_algorithm(get_operation(["1", "2", "3", "4"]))
+        algorithm = normalize_algorithm(get_operation(["1", "2", "3", "4", "5", "6"]))
 
         secret = get_secret(option, algorithm)
 
