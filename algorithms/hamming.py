@@ -1,4 +1,4 @@
-def encode(bits: str):
+def encode(bits):
     t1 = int(bits[0]) ^ int(bits[1]) ^ int(bits[2])
     t2 = int(bits[1]) ^ int(bits[2]) ^ int(bits[3])
     t3 = int(bits[0]) ^ int(bits[2]) ^ int(bits[3])
@@ -6,7 +6,7 @@ def encode(bits: str):
     return bits + str(t1) + str(t2) + str(t3)
 
 
-def encode_hamming(input_string):
+def encode_char(input_string):
     first_half = ord(input_string) & 0xF
     second_half = ord(input_string) >> 4 & 0xF
 
@@ -20,14 +20,17 @@ def encode_hamming(input_string):
 
     return encode(first_half_bin) + encode(second_half_bin)
 
-def encode_string(string):
+
+def encode_hamming(input_string):
     ret = ""
-    for c in string:
-        ret += encode_hamming(c)
+
+    for c in input_string:
+        ret += encode_char(c)
 
     return ret
 
-def decode(bits: str):
+
+def decode(bits):
     integrity = [int(bits[4]), int(bits[5]), int(bits[6])]
 
     t1 = int(bits[0]) ^ int(bits[1]) ^ int(bits[2]) == integrity[0]
@@ -45,22 +48,17 @@ def decode(bits: str):
     return bits[:4]
 
 
-def decode_hamming(input_string):
-    first_half_bin = input_string[:7]
-    second_half_bin = input_string[7:]
+def decode_char(char):
+    first_half_bin = char[:7]
+    second_half_bin = char[7:]
 
     return decode(second_half_bin) + decode(first_half_bin)
 
-def decode_string(string):
+
+def decode_hamming(input_string):
     ret = ""
-    for i in range(0,len(string),14):
-        ret += chr(int(decode_hamming(string[i:i+14]),2))
+
+    for i in range(0, len(input_string), 14):
+        ret += chr(int(decode_char(input_string[i : i + 14]), 2))
 
     return ret
-
-
-
-
-
-
-
