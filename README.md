@@ -12,6 +12,13 @@ Todos devem apresentar.
 
 A entrega pode ser efetuado somente por 1 integrante do grupo, mas deve constar o nome de todos.
 
+## Trabalho Prático 2
+
+O Trabalho Prático 2 consiste na implementação dos algoritmos de detecção e correção de erro. O objetivo é criar uma interface para codificação e decodificação, onde o usuário possa inserir um ou mais símbolos ou codewords (binários), escolher o método de codificação ou decodificação desejado e visualizar o resultado na tela.
+
+- Código de repetição Ri
+- Hamming (7,4)
+
 ## Grupo
 
 - Bruno Silveira
@@ -26,4 +33,4 @@ A entrega pode ser efetuado somente por 1 integrante do grupo, mas deve constar 
 
 ## Apresentação
 
-[Disponível aqui](https://asavbrm-my.sharepoint.com/:v:/g/personal/gabrieldefreitas_edu_unisinos_br/EZ-fKubrfCZDkfnFhrImxQAB_XQX5ms6lvETt1RsKqRSeg?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&email=ELVANDI%40unisinos.br&e=5KEArk)
+[Trabalho Prático 1 - Disponível aqui](https://asavbrm-my.sharepoint.com/:v:/g/personal/gabrieldefreitas_edu_unisinos_br/EZ-fKubrfCZDkfnFhrImxQAB_XQX5ms6lvETt1RsKqRSeg?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&email=ELVANDI%40unisinos.br&e=5KEArk)
