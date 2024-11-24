@@ -22,12 +22,14 @@ Critérios de Avaliação:
 
 - Gabriel de Freitas
 
-## Executar
+## Pesquisa
+
+[Disponível aqui](./pesquisa.pdf)
+
+## Executar comparativo
 
 - Tenha o `python==3` e `matplotlib==3.9.2` instalados
 - Execute o arquivo `main.py`
-
-## Pesquisa
 
 ## Resultado
 
